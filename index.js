@@ -201,7 +201,7 @@ $(function(){
     // $("#end-date").val(endDate.slice(0, endDate.length - 1));
     $("#start-date").val(url.searchParams.get("startDate"));
     $("#end-date").val(url.searchParams.get("endDate"));
-    $("#title-date").val(title);
+    $("#title-date").val(url.searchParams.get("title"));
   });
 
   $("#delete-button").click(function(){
