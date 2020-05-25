@@ -37,14 +37,6 @@ h1, h2, h3, h4, h5, h6{
   vertical-align: middle;
 }
 
-#time-left > h1{
-  font-size: 600%;
-  border-radius: 15px;
-}
-
-#time-left > h2{
-  font-size: 400%;
-}
 
 #progress-bar{
   opacity: 0.8;
@@ -125,20 +117,15 @@ img{
 }
 
 #countdown-display{
-  font-size: 50px;
+  /* font-size: 50px; */
+  font-size: 600%;
+  border-radius: 15px;
 }
 
 #title{
-  font-size: 40px;
+  /* font-size: 40px; */
+  font-size: 400%;
   display: inline-block;
-}
-
-#input-popup h1{
-  font-size: 3em
-}
-
-#input-popup h2{
- font-size: 2em;
 }
 
 #input-popup p, #input-popup input, #input-popup label{
@@ -147,6 +134,60 @@ img{
 
 #input-popup input{
   margin-right: 1.25em;
+}
+
+@media only screen and (max-width: 840px) {
+  #countdown-display{
+    font-size: 45px;
+  }
+
+  #title{
+    font-size: 35px;
+  }
+
+  #input-popup{
+    overflow-y: scroll;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #countdown-display{
+    font-size: 30px;
+  }
+
+  #title{
+    font-size: 20px;
+  }
+
+  /* #percent-progress{
+    display: none;
+  } */
+
+  /* #start-date-progress{
+    flex-grow: 1;
+  } */
+
+  #start-date-progress, #end-date-progress{
+    font-size: 12px;
+  }
+
+  #input-popup{
+    overflow-y: scroll;
+    padding: 10px;
+  }
+
+  #progress-bar{
+    margin: 0;
+    width: 100%;
+  }
+
+  button i{
+    font-size: 16px !important;
+  }
+
+  button{
+    padding: 8px !important;
+  }
 }
 
 #timer-setup{
