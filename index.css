@@ -195,6 +195,9 @@ img{
   /* #start-date-progress{
     flex-grow: 1;
   } */
+  #countdown-setup{
+      margin: 0 !important;
+  }
 
   #start-date-progress, #end-date-progress{
     font-size: 12px;

@@ -22,11 +22,11 @@ $(function(){
     // updateTime();
     let tempURL = new URL(window.location.href);
     if(tempURL.searchParams == ""){
-      console.log("Search Params: "+ tempURL.searchParams);
+      // console.log("Search Params: "+ tempURL.searchParams);
       drawBackground(false);
     } else {
       $("#input-popup").hide();
-      console.log(tempURL.searchParams.length);
+      // console.log(tempURL.searchParams.length);
       readURL(window.location.href);
     }
   }, 10);
@@ -205,7 +205,7 @@ $(function(){
     $("#end-date").val(url.searchParams.get("endDate"));
     $("#title-date").val(url.searchParams.get("title"));
     $("#progress-input").prop("checked", url.searchParams.get("progress") == null ? true: url.searchParams.get("progress") == "true");
-    console.log(url.searchParams.get("progress"));
+    // console.log(url.searchParams.get("progress"));
   });
 
   $("#delete-button").click(function(){
