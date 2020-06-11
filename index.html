@@ -18,7 +18,7 @@
   <div id="countdown">
     <div id="time-left">
       <h2 id="title"></h2>
-      <button id="settings-button"><i class="fas fa-cog"></i></button>
+      <button id="settings-button"><i class="fas fa-edit"></i></button>
       <button id="share-button"><i class="fas fa-share"></i></button>
       <button id="delete-button"><i class="fas fa-trash-alt"></i></button>
       <h1 id="countdown-display"></h1>
@@ -30,24 +30,46 @@
     </div>
   </div>
   <div id="input-popup">
-    <h1>Coronavirus Countdown</h1>
-    <p>Great for counting down to school re-opening, birthdays, holidays, etc. The coronavirus background adds an interesting aesthetic and is a great way to remind us why we have to <b>stay home</b>.</p>
+    <h1>Coronavirus Progress Countdown</h1>
+    <p>Great for counting down from the start to the end of summer break, quarentine, holidays, birthdays, that one assignment that you procrastinated on, etc. The countdown includes a progress bar to show the progress of an event for start to finish allowing for easy time management. The coronavirus background adds an interesting aesthetic and is a great way to remind us why we have to <b>stay home</b> (more backgrounds coming soon).</p>
     <h2>Setup</h2>
     <form id="countdown-setup">
-      <div class="input-container">
-        <label for="start-date">Start Date: </label>
-        <input id="start-date" type="datetime-local" placeholder="(Optional)" value="2020-01-01T00:00">
-      </div>
-      <div class="input-container">
-        <label for="end-date">End Date: </label>
-        <input id="end-date" type="datetime-local" value="2022-01-01T00:00">
-      </div>
-      <div class="input-container">
-        <label for="title-input">Title: </label>
+      <div class="input-container" id="title-input-container">
+        <label for="title-input">Title</label>
         <input id="title-input" type="text" value="Untitled Countdown">
+        <span></span>
       </div>
+      <div class="input-container">
+        <label for="start-date">Start Date</label>
+        <input id="start-date" type="datetime-local" placeholder="(Optional)" value="2020-01-01T00:00">
+        <span></span>
+      </div>
+      <div class="input-container">
+        <label for="end-date">End Date</label>
+        <input id="end-date" type="datetime-local" value="2022-01-01T00:00">
+        <span></span>
+      </div>
+      <!-- <div class="input-container">
+        <label for="progress-input">Background</label>
+        <select>
+          <optgroup label="Color">
+            <option>Choose</option>
+          </optgroup>
+          <optgroup label="Image">
+            <option>Upload</option>
+          </optgroup>
+        </select>
+      </div> -->
+      <div class="input-container">
+        <label for="progress-input">Progress Bar</label>
+        <input id="progress-input" type="checkbox" checked>
+      </div>
+
       <input id="submit" type="submit" value="Done!">
     </form>
+    <footer>
+      © 2020 Garrett Gee
+    </footer>
   </div>
   <div id="copy-popup">
     <button id="close-copy-popup"><i class="fa fa-close"></i></button>

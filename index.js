@@ -31,7 +31,7 @@ $(function(){
     }
   }, 10);
 
-  function updateTime(startDate, endDate, title){
+  function updateTime(startDate, endDate, title, progress){
     // let startDate = new Date(2020, 4, 16);
     // let endDate = new Date(2020, 7, 12);
     let timeLeft = endDate.getTime() - Date.now();
@@ -47,14 +47,18 @@ $(function(){
     let label = title;
     let textColor = betterColorGradient(1 - percentFinished, [255, 0, 0, 0.1], [255, 0, 0, 1]);
     $("#title").text(`${label}`);
-    $("#countdown-display").text(`${daysLeft}D ${hoursLeft}H ${minutesLeft}M ${secondsLeft}S`).css("background-color",`rgb(${textColor[0]}, ${textColor[1]}, ${textColor[2]}, ${textColor[3]})`);;
+    $("#countdown-display").text(`${daysLeft}D ${hoursLeft}H ${minutesLeft}M ${secondsLeft}S`).css("background-color",`rgb(${textColor[0]}, ${textColor[1]}, ${textColor[2]}, ${textColor[3]})`);
     // $("#time-left").html(`${label != "" ? `<h2>${label}</h2><br>` : ""}`).find("h1")
-    $("#progress-bar").attr("style", "box-shadow: -"+Math.floor($("#progress-bar").width() * percentFinished)+"px 0 0 0 rgba(15, 15, 15) inset;");
-    let formatStartDate = moment(startDate).format('MMM Do, YYYY');
-    let formatEndDate = moment(endDate).format('MMM Do, YYYY');
-    $("#start-date-progress").text(formatStartDate);
-    $("#percent-progress").text(((1 - percentFinished).toFixed(2) * 100)+"%");
-    $("#end-date-progress").text(formatEndDate);
+    if(progress == "true"){
+      $("#progress-bar").attr("style", "box-shadow: -"+Math.floor($("#progress-bar").width() * percentFinished)+"px 0 0 0 rgba(15, 15, 15) inset;");
+      let formatStartDate = moment(startDate).format('MMM Do, YYYY');
+      let formatEndDate = moment(endDate).format('MMM Do, YYYY');
+      $("#start-date-progress").text(formatStartDate);
+      $("#percent-progress").text(((1 - percentFinished).toFixed(2) * 100)+"%");
+      $("#end-date-progress").text(formatEndDate);
+    } else {
+      $("#progress-bar").hide();
+    }
   }
 
   function drawBackground(drawTrails){
@@ -145,9 +149,7 @@ $(function(){
 
   $("#submit").click(function(e){
     e.preventDefault();
-    console.log("start date:"+$("#start-date").val());
-    console.log("end date:"+$("#end-date").val());
-    let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "?startDate=" + $("#start-date").val() + "&endDate=" + $("#end-date").val() + "&title="+$("#title-input").val();
+    let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "?startDate=" + $("#start-date").val() + "&endDate=" + $("#end-date").val() + "&title=" + $("#title-input").val() + "&progress="+$("#progress-input").is(":checked");
     window.history.pushState({ path: newURL }, '', newURL);
     $("#input-popup").fadeOut(function(){
       $(this).hide();
@@ -161,7 +163,7 @@ $(function(){
     $("#countdown").show();
     backgroundInterval = setInterval(function(){
       // updateTime(new Date(parseInt(url.searchParams.get("startDate"))), new Date(parseInt(url.searchParams.get("endDate"))), url.searchParams.get("title"));
-      updateTime(new Date(url.searchParams.get("startDate")), new Date(url.searchParams.get("endDate")), url.searchParams.get("title"));
+      updateTime(new Date(url.searchParams.get("startDate")), new Date(url.searchParams.get("endDate")), url.searchParams.get("title"), url.searchParams.get("progress") == null ? true: url.searchParams.get("progress"));
       drawBackground(true);
     }, 10);
   }
@@ -202,6 +204,8 @@ $(function(){
     $("#start-date").val(url.searchParams.get("startDate"));
     $("#end-date").val(url.searchParams.get("endDate"));
     $("#title-date").val(url.searchParams.get("title"));
+    $("#progress-input").prop("checked", url.searchParams.get("progress") == null ? true: url.searchParams.get("progress") == "true");
+    console.log(url.searchParams.get("progress"));
   });
 
   $("#delete-button").click(function(){
