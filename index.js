@@ -11,12 +11,12 @@ $(function(){
   let submitValue = false;
   let deleteCountdown = false;
 
-  window.onbeforeunload = function() {
-    if (deleteCountDown) {
-      deleteCountDown = false;
-      return "";
-    }
-  }
+  // window.onbeforeunload = function() {
+  //   if (deleteCountDown) {
+  //     deleteCountDown = false;
+  //     return "";
+  //   }
+  // }
 
   let backgroundInterval = setInterval(function(){
     // updateTime();
@@ -209,10 +209,12 @@ $(function(){
   });
 
   $("#delete-button").click(function(){
-    deleteCountDown = true;
-    let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    window.history.pushState({path: newURL}, document.title, newURL);
-    window.location.reload();
+    if(confirm("Are you sure you want to delete this countdown?")){
+      deleteCountDown = true;
+      let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      window.history.pushState({path: newURL}, document.title, newURL);
+      window.location.reload();
+    }
   });
 
 

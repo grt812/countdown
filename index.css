@@ -254,6 +254,7 @@ input{
   outline: 0;
   border-radius: 0;
   /* transition: */
+  width: 100%;
 
 }
 
@@ -353,6 +354,10 @@ input[type="checkbox"]:checked::after{
 
 #title-input-container{
   flex-basis: 100%;
+}
+
+#title-input{
+  width: 100%;
 }
 
 #submit{
