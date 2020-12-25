@@ -10,6 +10,7 @@ $(function(){
   }
   let submitValue = false;
   let deleteCountdown = false;
+  let drawTrails = false;
 
   // window.onbeforeunload = function() {
   //   if (deleteCountDown) {
@@ -23,9 +24,10 @@ $(function(){
     let tempURL = new URL(window.location.href);
     if(tempURL.searchParams == ""){
       // console.log("Search Params: "+ tempURL.searchParams);
-      drawBackground(false);
+      drawBackground();
     } else {
       $("#input-popup").hide();
+      drawTrails = true;
       // console.log(tempURL.searchParams.length);
       readURL(window.location.href);
     }
@@ -61,14 +63,25 @@ $(function(){
     }
   }
 
-  function drawBackground(drawTrails){
+  function drawBackground(){
     let canvas = $("#background")[0];
+    let fgcanvas = $("#foreground")[0];
+    let fgCanvasContext;
+    if(fgcanvas.getContext){
+      let fgCanvasContext = fgcanvas.getContext('2d');
+      fgCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      if(drawTrails){
+        drawMouseTrail(fgCanvasContext);
+      }
+    }
     if (canvas.getContext){
       let ctx = canvas.getContext('2d');
       let img = $("#coronavirus")[0];
       if(init){
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
+        fgcanvas.width  = window.innerWidth;
+        fgcanvas.height = window.innerHeight;
         for(let i = 0; i < 30; i++){
           imageArray.push({x: Math.floor(Math.random() * canvas.width), y: Math.floor(Math.random() * canvas.height), size: Math.floor(Math.random() * 100 + 20), direction: Math.random()*2*Math.PI, rotateLeft: Math.random() >= 0.5, rotationDirection: Math.random() * Math.PI * 2, rotationSpeed: Math.random() * 0.001, growth: Math.random()*0.1-0.05});
         }
@@ -119,9 +132,6 @@ $(function(){
           }
         }
       });
-      if(drawTrails){
-        drawMouseTrail(ctx);
-      }
     }
   }
 
@@ -140,6 +150,8 @@ $(function(){
   $(window).resize(function(){
     $("#background").attr("width",$(this).innerWidth());
     $("#background").attr("height",$(this).innerHeight());
+    $("#foreground").attr("width",$(this).innerWidth());
+    $("#foreground").attr("height",$(this).innerHeight());
   });
 
   $(document).on("mousemove",function(e){
@@ -153,6 +165,7 @@ $(function(){
     window.history.pushState({ path: newURL }, '', newURL);
     $("#input-popup").fadeOut(function(){
       $(this).hide();
+      drawTrails = true;
     });
     readURL(newURL);
   });
@@ -164,7 +177,7 @@ $(function(){
     backgroundInterval = setInterval(function(){
       // updateTime(new Date(parseInt(url.searchParams.get("startDate"))), new Date(parseInt(url.searchParams.get("endDate"))), url.searchParams.get("title"));
       updateTime(new Date(url.searchParams.get("startDate")), new Date(url.searchParams.get("endDate")), url.searchParams.get("title"), url.searchParams.get("progress") == null ? true: url.searchParams.get("progress"));
-      drawBackground(true);
+      drawBackground();
     }, 10);
   }
 
@@ -199,6 +212,7 @@ $(function(){
     // let endDate = new Date(parseInt(url.searchParams.get("endDate"))).toISOString();
     let title = url.searchParams.get("title");
     $("#input-popup").fadeIn();
+    drawTrails = false;
     // $("#start-date").val(startDate.slice(0, startDate.length - 1));
     // $("#end-date").val(endDate.slice(0, endDate.length - 1));
     $("#start-date").val(url.searchParams.get("startDate"));
