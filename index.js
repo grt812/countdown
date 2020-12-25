@@ -217,7 +217,7 @@ $(function(){
     // $("#end-date").val(endDate.slice(0, endDate.length - 1));
     $("#start-date").val(url.searchParams.get("startDate"));
     $("#end-date").val(url.searchParams.get("endDate"));
-    $("#title-date").val(url.searchParams.get("title"));
+    $("#title-input").val(url.searchParams.get("title"));
     $("#progress-input").prop("checked", url.searchParams.get("progress") == null ? true: url.searchParams.get("progress") == "true");
     // console.log(url.searchParams.get("progress"));
   });
